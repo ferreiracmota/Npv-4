@@ -367,7 +367,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
             href="https://pay.hotmart.com/N97646212X?off=xmopb4bq&hotfeature=51&_hi=eyJjaWQiOiIxNzIyODIwNDcyNDEyNTMxNzU1NzcyNjcyMDg0MzAwIiwiYmlkIjoiMTcyMjgyMDQ3MjQxMjUzMTc1NTc3MjY3MjA4NDMwMCIsInNpZCI6IjBlNDEwZGM1ZGExMTQ5YWRiY2ExOWYzYThhMzk0Y2JkIn0=.1757258903000&bid=1757258905260" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="hidden md:block bg-lime-400 text-black px-6 py-2 rounded font-bold hover:bg-lime-300 hover:scale-105 transition-all duration-300"
+            className="hidden"
           >
             Entrar
           </a>
@@ -383,10 +383,13 @@ Para ele, o que garante transformação é a constância, conquistada através d
               <span className={`bg-white block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${isMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'}`}></span>
             </div>
           </button>
-
-          <button className="hidden md:block bg-lime-400 text-black px-6 py-2 rounded font-medium hover:bg-lime-300 transition-colors">
+          <a 
+            href="https://pay.hotmart.com/N97646212X?off=xmopb4bq&hotfeature=51&_hi=eyJjaWQiOiIxNzIyODIwNDcyNDEyNTMxNzU1NzcyNjcyMDg0MzAwIiwiYmlkIjoiMTcyMjgyMDQ3MjQxMjUzMTc1NTc3MjY3MjA4NDMwMCIsInNpZCI6IjBlNDEwZGM1ZGExMTQ5YWRiY2ExOWYzYThhMzk0Y2JkIn0=.1757258903000&bid=1757258905260" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="hidden md:block bg-lime-400 text-black px-6 py-2 rounded font-medium hover:bg-lime-300 transition-colors">
             ENTRAR
-          </button>
+          </a>
         </div>
 
         {/* Mobile Menu */}
@@ -397,9 +400,13 @@ Para ele, o que garante transformação é a constância, conquistada através d
               <button onClick={() => scrollToSection('sobre')} className="text-left hover:text-lime-400 transition-colors">SOBRE</button>
               <button onClick={() => scrollToSection('planos')} className="text-left hover:text-lime-400 transition-colors">PLANOS</button>
               <button onClick={() => scrollToSection('contato')} className="text-left hover:text-lime-400 transition-colors">CONTATO</button>
-              <button className="bg-lime-400 text-black px-6 py-2 rounded font-medium hover:bg-lime-300 transition-colors w-fit">
+              <a 
+            href="https://pay.hotmart.com/N97646212X?off=xmopb4bq&hotfeature=51&_hi=eyJjaWQiOiIxNzIyODIwNDcyNDEyNTMxNzU1NzcyNjcyMDg0MzAwIiwiYmlkIjoiMTcyMjgyMDQ3MjQxMjUzMTc1NTc3MjY3MjA4NDMwMCIsInNpZCI6IjBlNDEwZGM1ZGExMTQ5YWRiY2ExOWYzYThhMzk0Y2JkIn0=.1757258903000&bid=1757258905260" 
+            target="_blank" 
+            rel="noopener noreferrer"
+              className="bg-lime-400 text-black px-6 py-2 rounded font-medium hover:bg-lime-300 transition-colors w-fit">
                 ENTRAR
-              </button>
+              </a>
             </nav>
           </div>
         )}
