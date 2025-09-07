@@ -263,7 +263,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
         {
           id: 1,
           thumbnail: asset12, // Placeholder
-          videoUrl: "https://www.youtube.com/shorts/uKiwR72jkcY", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/watch?v=OGPNZTdIhNw&list=PLgwQNP660MR-EmGbZMT8lHwgPCyj-UCpj&ab_channel=GianDoGrau", // Será adicionado pelo usuário
           title: "Depoimento 1"
         },
         {
