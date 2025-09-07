@@ -720,20 +720,20 @@ Para ele, o que garante transformação é a constância, conquistada através d
       {/* Guarantee Seal Section */}
       <section className="py-16 bg-black">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex flex-col lg:flex-row items-center gap-6 lg:flex-row lg:justify-center lg:gap-8">
             {/* Selo à esquerda */}
             <div className="lg:w-1/2">
               <img 
                 src={seloGarantia} 
                 alt="Garantia de 7 Dias" 
-                className="mx-auto lg:mx-0 max-w-xs hover:scale-110 transition-transform duration-300"
+                className="w-24 md:w-32 hover:scale-110 transition-transform duration-300"
               />
             </div>
             
             {/* Texto à direita */}
-            <div className="lg:w-1/2">
-              <h2 className="text-4xl font-bold mb-6 text-lime-400">GARANTIA DE 7 DIAS</h2>
-              <p className="text-lg text-gray-300 leading-relaxed">
+            <div className="text-center lg:text-left">
+              <h2 className="text-2xl md:text-4xl font-bold text-lime-400">GARANTIA DE 7 DIAS</h2>
+              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
                 Experimente nosso programa por 7 dias completos. Se não ficar satisfeito com os resultados, devolvemos 100% do seu dinheiro. Sem perguntas, sem complicações. Sua satisfação é nossa prioridade.
               </p>
             </div>
