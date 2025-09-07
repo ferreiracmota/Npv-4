@@ -728,7 +728,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
         <img
           src={seloGarantia}
           alt="Garantia de 7 Dias"
-          className="mx-auto w-24 md:w-32 hover:scale-110 transition-transform duration-300"
+          className="mx-auto lg:mx-0 hover:scale-110 transition-transform duration-300"
         />
       </div>
 
