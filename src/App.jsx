@@ -717,29 +717,36 @@ Para ele, o que garante transformação é a constância, conquistada através d
         </div>
       </section>
 
-      {/* Guarantee Seal Section */}
-      <section className="py-16 bg-black">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-6 lg:flex-row lg:justify-center lg:gap-8">
-            {/* Selo à esquerda */}
-            <div className="lg:w-1/2">
-              <img 
-                src={seloGarantia} 
-                alt="Garantia de 7 Dias" 
-                className="w-24 md:w-32 hover:scale-110 transition-transform duration-300"
-              />
-            </div>
-            
-            {/* Texto à direita */}
-            <div className="text-center lg:text-left">
-              <h2 className="text-2xl md:text-4xl font-bold text-lime-400">GARANTIA DE 7 DIAS</h2>
-              <p className="text-base md:text-lg text-gray-300 leading-relaxed">
-                Experimente nosso programa por 7 dias completos. Se não ficar satisfeito com os resultados, devolvemos 100% do seu dinheiro. Sem perguntas, sem complicações. Sua satisfação é nossa prioridade.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+{/* Guarantee Seal Section */}
+<section className="py-16 bg-black">
+  <div className="container mx-auto px-4">
+    {/* Mobile: coluna; Desktop: linha centralizada e com gap menor */}
+    <div className="flex flex-col items-center gap-8 lg:flex-row lg:justify-center lg:gap-8">
+      
+      {/* Selo — mobile centralizado; desktop mantém tamanho e efeito */}
+      <div>
+        <img
+          src={seloGarantia}
+          alt="Garantia de 7 Dias"
+          className="mx-auto w-24 md:w-32 hover:scale-110 transition-transform duration-300"
+        />
+      </div>
+
+      {/* Texto — mobile centralizado; desktop alinhado à esquerda */}
+      <div className="text-center lg:text-left max-w-prose">
+        <h2 className="text-2xl md:text-4xl font-bold text-lime-400">
+          GARANTIA DE 7 DIAS
+        </h2>
+        <p className="text-base md:text-lg text-gray-300 leading-relaxed">
+          Experimente nosso programa por 7 dias completos. Se não ficar satisfeito, devolvemos seu dinheiro.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 
       {/* Instagram Section */}
       <section className="py-20 bg-gray-800">
