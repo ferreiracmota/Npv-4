@@ -263,7 +263,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
         {
           id: 1,
           thumbnail: asset12, // Placeholder
-          videoUrl: "https://www.youtube.com/embed/OGPNZTdIhNw&list=PLgwQNP660MR-EmGbZMT8lHwgPCyj-UCpj&ab_channel=GianDoGrau", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/watch?v=OGPNZTdIhNw&list=PLgwQNP660MR-EmGbZMT8lHwgPCyj-UCpj&ab_channel=GianDoGrau", // Será adicionado pelo usuário
           title: "Depoimento 1"
         },
         {
@@ -674,34 +674,38 @@ Para ele, o que garante transformação é a constância, conquistada através d
           </div>
           
           {/* Grid de vídeos - 4 vídeos na vertical */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {siteData.videoTestimonials.videos.map((video) => (
-              <div key={video.id} className="group cursor-pointer">
-                <div className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl hover:scale-105 transition-transform duration-300">
-                  {/* Thumbnail do vídeo */}
-                  <img 
-                    src={video.thumbnail} 
-                    alt={video.title}
-                    className="w-full h-full object-cover"
-                  />
-                  
-                  {/* Overlay com botão play */}
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center group-hover:bg-opacity-20 transition-all duration-300">
-                    <div className="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  {/* Título do vídeo */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                    <h3 className="text-white font-semibold">{video.title}</h3>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+  {siteData.videoTestimonials.videos.map((video) => (
+    <a
+      key={video.id}
+      href={video.videoUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl hover:scale-105 transition"
+    >
+      {/* Thumbnail */}
+      <img
+        src={video.thumbnail}
+        alt={video.title}
+        className="w-full h-full object-cover"
+      />
+
+      {/* Overlay com botão play */}
+      <div className="absolute inset-0 bg-black/40 flex items-center justify-center hover:bg-black/30 transition">
+        <svg className="w-16 h-16 text-lime-400" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </div>
+
+      {/* Título do vídeo */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+        <h3 className="text-white font-semibold text-sm md:text-base">
+          {video.title}
+        </h3>
+      </div>
+    </a>
+  ))}
+</div>
           
           {/* CTA após vídeos */}
           <div className="text-center mt-12">
