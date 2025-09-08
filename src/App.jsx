@@ -142,19 +142,6 @@ import asset140 from './assets/647-3746.svg'
 import asset141 from './assets/647-3747.svg'
 import logoNPV from './assets/logo-branca-npv.PNG'
 import seloGarantia from './assets/Selo-de-Garantia-de-7-Dias-PNG-Transparente.png'
-import heroVideo from './assets/hero-background.MOV'
-
-// Novas imagens de antes e depois
-import antesDepois01 from './assets/antes-depois-01.png'
-import antesDepois02 from './assets/antes-depois-02.jpg'
-import antesDepois03 from './assets/antes-depois-03.jpg'
-import antesDepois04 from './assets/antes-depois-04.png'
-import antesDepois05 from './assets/antes-depois-05.jpg'
-import antesDepois06 from './assets/antes-depois-06.jpg'
-import antesDepois07 from './assets/antes-depois-07.jpg'
-import antesDepois08 from './assets/antes-depois-08.jpg'
-import antesDepois09 from './assets/antes-depois-09.jpg'
-import antesDepois10 from './assets/antes-depois-10.jpg'
 
 import React, { useState, useEffect } from 'react'
 
@@ -205,8 +192,7 @@ function App() {
       buttonText: "QUERO DECOLAR 🡢"
     },
     beforeAfter: [
-      antesDepois01, antesDepois02, antesDepois03, antesDepois04, antesDepois05, 
-      antesDepois06, antesDepois07, antesDepois08, antesDepois09, antesDepois10
+      asset12, asset13, asset14, asset15, asset16, asset17, asset18, asset19, asset20, asset21
     ],
     team: {
       title: "UMA EQUIPE DE ESPECIALISTAS",
@@ -427,29 +413,12 @@ Para ele, o que garante transformação é a constância, conquistada através d
       </header>
 
       {/* Hero Section */}
-      <section id="inicio" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Vídeo de fundo */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-          controls={false}
-          disablePictureInPicture
-          className="hero-video-background"
-        >
-          <source src={heroVideo} type="video/mp4" />
-          <source src={heroVideo} type="video/quicktime" />
-          <source src={heroVideo} type="video/mov" />
-          {/* Fallback para navegadores que não suportam vídeo */}
+      <section id="inicio" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black">
+        <div className="absolute inset-0 opacity-20">
           <img src={asset1} alt="Background" className="w-full h-full object-cover" />
-        </video>
-        
-        {/* Overlay escuro para melhor legibilidade */}
-        <div className="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-        
-        <div className="relative z-20 text-center animate-fade-in">
-          <h1 className="text-4xl md:text-6xl lg:hero-title-desktop font-black mb-4 leading-tight">
+        </div>
+        <div className="relative z-10 text-center animate-fade-in">
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-black mb-4 leading-tight">
             <span className="text-white block animate-slide-up">{siteData.hero.title}</span>
             <span className="text-white block animate-slide-up animation-delay-200">{siteData.hero.subtitle}</span>
             <span className="text-lime-400 block animate-slide-up animation-delay-400">{siteData.hero.subtitle2}</span>
