@@ -150,6 +150,48 @@ function App() {
   const [email, setEmail] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false)
+  // ▶️ Modal de vídeo (abre/fecha)
+const [openVideo, setOpenVideo] = useState(null);
+
+// Converte links watch/shorts → embed
+const toEmbed = (url) => {
+  try {
+    // watch?v=ID
+    const watch = url.match(/watch\?v=([^&]+)/);
+    if (watch && watch[1]) return `https://www.youtube.com/embed/${watch[1]}?autoplay=1`;
+
+    // shorts/ID
+    const shorts = url.match(/shorts\/([^?]+)/);
+    if (shorts && shorts[1]) return `https://www.youtube.com/embed/${shorts[1]}?autoplay=1`;
+
+    // se já vier embed, só garante autoplay
+    if (url.includes('/embed/')) {
+      return url.includes('autoplay=1') ? url : `${url}${url.includes('?') ? '&' : '?'}autoplay=1`;
+    }
+
+    return url; // fallback
+  } catch {
+    return url;
+  }
+};
+
+// Extrai o ID do vídeo para pegar a capa oficial do YouTube
+const getYouTubeId = (url) => {
+  const watch = url.match(/watch\?v=([^&]+)/);
+  if (watch && watch[1]) return watch[1];
+  const shorts = url.match(/shorts\/([^?]+)/);
+  if (shorts && shorts[1]) return shorts[1];
+  const embed = url.match(/embed\/([^?]+)/);
+  if (embed && embed[1]) return embed[1];
+  return null;
+};
+
+// Monta a URL da thumbnail do YouTube (hqdefault = boa qualidade)
+const youTubeThumb = (url) => {
+  const id = getYouTubeId(url);
+  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+};
+
 
   // Carregar script do LightWidget
   useEffect(() => {
@@ -263,7 +305,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
         {
           id: 1,
           thumbnail: asset12, // Placeholder
-          videoUrl: "https://www.youtube.com/watch?v=OGPNZTdIhNw&list=PLgwQNP660MR-EmGbZMT8lHwgPCyj-UCpj&ab_channel=GianDoGrau", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/watch?v=OGPNZTdIhNw&list=PLgwQNP660MR-EmGbZMT8lHwgPCyj-UCpj&ab_channel=GianDoGraug", // Será adicionado pelo usuário
           title: "Depoimento 1"
         },
         {
@@ -673,40 +715,63 @@ Para ele, o que garante transformação é a constância, conquistada através d
             <p className="text-gray-400 text-lg">{siteData.videoTestimonials.subtitle}</p>
           </div>
           
-          {/* Grid de vídeos - 4 vídeos na vertical */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+          {/* Grid de vídeos - 4 cartões */}
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
   {siteData.videoTestimonials.videos.map((video) => (
-    <a
+    <button
       key={video.id}
-      href={video.videoUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl hover:scale-105 transition"
+      type="button"
+      onClick={() => setOpenVideo(video.videoUrl)}
+      className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl hover:scale-105 transition-transform duration-300 text-left"
+      aria-label={`Assistir: ${video.title}`}
     >
-      {/* Thumbnail */}
+      {/* Thumbnail do YouTube (automática) */}
       <img
-        src={video.thumbnail}
+        src={youTubeThumb(video.videoUrl) || video.thumbnail}
         alt={video.title}
         className="w-full h-full object-cover"
       />
 
       {/* Overlay com botão play */}
-      <div className="absolute inset-0 bg-black/40 flex items-center justify-center hover:bg-black/30 transition">
-        <svg className="w-16 h-16 text-lime-400" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M8 5v14l11-7z" />
-        </svg>
+      <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
+        <div className="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+          <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
       </div>
 
-      {/* Título do vídeo */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-        <h3 className="text-white font-semibold text-sm md:text-base">
-          {video.title}
-        </h3>
+      {/* Título no rodapé */}
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+        <h3 className="text-white font-semibold text-sm">{video.title}</h3>
       </div>
-    </a>
+    </button>
   ))}
 </div>
-          
+
+
+      {/* ▶️ Modal de vídeo */}
+{openVideo && (
+  <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+    <div className="relative w-full max-w-4xl aspect-video">
+      <iframe
+        className="w-full h-full"
+        src={toEmbed(openVideo)}
+        title="Video"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+      {/* botão fechar */}
+      <button
+        className="absolute -top-10 right-0 text-white text-2xl"
+        onClick={() => setOpenVideo(null)}
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+)}    
           {/* CTA após vídeos */}
           <div className="text-center mt-12">
             <a 
