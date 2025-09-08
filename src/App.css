@@ -279,3 +279,62 @@
   }
 }
 
+/* Ajuste do título principal - menor no desktop */
+@media (min-width: 1024px) {
+  .hero-title-desktop {
+    font-size: 6rem; /* Menor que o lg:text-8xl padrão */
+  }
+}
+
+
+/* Estilos específicos para o vídeo de fundo */
+.hero-video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Garantir que o vídeo não seja selecionável */
+.hero-video-background::-webkit-media-controls {
+  display: none !important;
+}
+
+.hero-video-background::-webkit-media-controls-panel {
+  display: none !important;
+}
+
+.hero-video-background::-webkit-media-controls-play-button {
+  display: none !important;
+}
+
+.hero-video-background::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
+/* Para Firefox */
+.hero-video-background::-moz-media-controls {
+  display: none !important;
+}
+
+/* Garantir que o vídeo preencha completamente a seção */
+#inicio {
+  position: relative;
+  overflow: hidden;
+}
+
+#inicio video {
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
