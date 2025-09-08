@@ -150,50 +150,6 @@ function App() {
   const [email, setEmail] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false)
-  const [playingVideo, setPlayingVideo] = useState(null);
-
-  // ▶️ Modal de vídeo (abre/fecha)
-const [openVideo, setOpenVideo] = useState(null);
-
-// Converte links watch/shorts → embed
-const toEmbed = (url) => {
-  try {
-    // watch?v=ID
-    const watch = url.match(/watch\?v=([^&]+)/);
-    if (watch && watch[1]) return `https://www.youtube.com/embed/${watch[1]}?autoplay=1`;
-
-    // shorts/ID
-    const shorts = url.match(/shorts\/([^?]+)/);
-    if (shorts && shorts[1]) return `https://www.youtube.com/embed/${shorts[1]}?autoplay=1`;
-
-    // se já vier embed, só garante autoplay
-    if (url.includes('/embed/')) {
-      return url.includes('autoplay=1') ? url : `${url}${url.includes('?') ? '&' : '?'}autoplay=1`;
-    }
-
-    return url; // fallback
-  } catch {
-    return url;
-  }
-};
-
-// Extrai o ID do vídeo para pegar a capa oficial do YouTube
-const getYouTubeId = (url) => {
-  const watch = url.match(/watch\?v=([^&]+)/);
-  if (watch && watch[1]) return watch[1];
-  const shorts = url.match(/shorts\/([^?]+)/);
-  if (shorts && shorts[1]) return shorts[1];
-  const embed = url.match(/embed\/([^?]+)/);
-  if (embed && embed[1]) return embed[1];
-  return null;
-};
-
-// Monta a URL da thumbnail do YouTube (hqdefault = boa qualidade)
-const youTubeThumb = (url) => {
-  const id = getYouTubeId(url);
-  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
-};
-
 
   // Carregar script do LightWidget
   useEffect(() => {
@@ -307,25 +263,25 @@ Para ele, o que garante transformação é a constância, conquistada através d
         {
           id: 1,
           thumbnail: asset12, // Placeholder
-          videoUrl: "https://www.youtube.com/watch?v=OGPNZTdIhNw&list=PLgwQNP660MR-EmGbZMT8lHwgPCyj-UCpj&ab_channel=GianDoGraug", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/embed/OGPNZTdIhNw", // Depoimento 1
           title: "Depoimento 1"
         },
         {
           id: 2,
           thumbnail: asset13, // Placeholder
-          videoUrl: "https://www.youtube.com/shorts/6QHuO42zpvM", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/embed/gXlTq44dywk", // Depoimento 2
           title: "Depoimento 2"
         },
         {
           id: 3,
           thumbnail: asset14, // Placeholder
-          videoUrl: "https://www.youtube.com/shorts/mK9Y2uHvv-w", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/embed/mK9Y2uHvv-w", // Depoimento 3
           title: "Depoimento 3"
         },
         {
           id: 4,
           thumbnail: asset15, // Placeholder
-          videoUrl: "https://www.youtube.com/shorts/5hQ0JZ65j0k", // Será adicionado pelo usuário
+          videoUrl: "https://www.youtube.com/embed/5hQ0JZ65j0k", // Depoimento 4
           title: "Depoimento 4"
         }
       ]
@@ -462,7 +418,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
           <img src={asset1} alt="Background" className="w-full h-full object-cover" />
         </div>
         <div className="relative z-10 text-center animate-fade-in">
-          <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-4 leading-tight">
+          <h1 className="text-4xl md:text-6xl lg:text-8xl font-black mb-4 leading-tight">
             <span className="text-white block animate-slide-up">{siteData.hero.title}</span>
             <span className="text-white block animate-slide-up animation-delay-200">{siteData.hero.subtitle}</span>
             <span className="text-lime-400 block animate-slide-up animation-delay-400">{siteData.hero.subtitle2}</span>
@@ -717,74 +673,30 @@ Para ele, o que garante transformação é a constância, conquistada através d
             <p className="text-gray-400 text-lg">{siteData.videoTestimonials.subtitle}</p>
           </div>
           
-          {/* Grid de vídeos - 4 cartões */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-  {siteData.videoTestimonials.videos.map((video) => (
-    <div
-      key={video.id}
-      className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl"
-    >
-      {playingVideo === video.id ? (
-        // ▶️ Quando clicar, mostra o vídeo rodando
-        <iframe
-          src={video.videoUrl.replace("watch?v=", "embed/") + "?autoplay=1"}
-          title={video.title}
-          className="w-full h-full"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      ) : (
-        // 🖼️ Senão, mostra a thumbnail com botão play
-        <button
-          type="button"
-          onClick={() => setPlayingVideo(video.id)}
-          className="group w-full h-full relative"
-        >
-          <img
-            src={video.thumbnail}
-            alt={video.title}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/60 transition">
-            <div className="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center">
-              <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
+          {/* Grid de vídeos - 4 vídeos na vertical */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {siteData.videoTestimonials.videos.map((video) => (
+              <div key={video.id} className="group cursor-pointer" onClick={() => window.open(video.videoUrl, '_blank')}>
+                <div className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl hover:scale-105 transition-transform duration-300">
+                  {/* Iframe do vídeo */}
+                  <iframe
+                    src={video.videoUrl}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                    title={video.title}
+                  ></iframe>
+                  
+                  {/* Título do vídeo */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                    <h3 className="text-white font-semibold text-sm">{video.title}</h3>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-            <h3 className="text-white font-semibold">{video.title}</h3>
-          </div>
-        </button>
-      )}
-    </div>
-  ))}
-</div>
-
-
-      {/* ▶️ Modal de vídeo */}
-{openVideo && (
-  <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
-    <div className="relative w-full max-w-4xl aspect-video">
-      <iframe
-        className="w-full h-full"
-        src={toEmbed(openVideo)}
-        title="Video"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-      {/* botão fechar */}
-      <button
-        className="absolute -top-10 right-0 text-white text-2xl"
-        onClick={() => setOpenVideo(null)}
-      >
-        ✕
-      </button>
-    </div>
-  </div>
-)}    
+          
           {/* CTA após vídeos */}
           <div className="text-center mt-12">
             <a 
@@ -799,7 +711,7 @@ Para ele, o que garante transformação é a constância, conquistada através d
         </div>
       </section>
 
-{/* Guarantee Seal Section */}
+      {/* Guarantee Seal Section */}
 <section className="py-16 bg-black">
   <div className="container mx-auto px-4">
     {/* Mobile: coluna; Desktop: linha centralizada e com gap menor */}
