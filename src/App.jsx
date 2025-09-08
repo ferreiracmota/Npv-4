@@ -150,6 +150,8 @@ function App() {
   const [email, setEmail] = useState('')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isContactDropdownOpen, setIsContactDropdownOpen] = useState(false)
+  const [playingVideo, setPlayingVideo] = useState(null);
+
   // ▶️ Modal de vídeo (abre/fecha)
 const [openVideo, setOpenVideo] = useState(null);
 
@@ -716,36 +718,47 @@ Para ele, o que garante transformação é a constância, conquistada através d
           </div>
           
           {/* Grid de vídeos - 4 cartões */}
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
   {siteData.videoTestimonials.videos.map((video) => (
-    <button
+    <div
       key={video.id}
-      type="button"
-      onClick={() => setOpenVideo(video.videoUrl)}
-      className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl hover:scale-105 transition-transform duration-300 text-left"
-      aria-label={`Assistir: ${video.title}`}
+      className="relative aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-xl"
     >
-      {/* Thumbnail do YouTube (automática) */}
-      <img
-        src={youTubeThumb(video.videoUrl) || video.thumbnail}
-        alt={video.title}
-        className="w-full h-full object-cover"
-      />
-
-      {/* Overlay com botão play */}
-      <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
-        <div className="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-          <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Título no rodapé */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-        <h3 className="text-white font-semibold text-sm">{video.title}</h3>
-      </div>
-    </button>
+      {playingVideo === video.id ? (
+        // ▶️ Quando clicar, mostra o vídeo rodando
+        <iframe
+          src={video.videoUrl.replace("watch?v=", "embed/") + "?autoplay=1"}
+          title={video.title}
+          className="w-full h-full"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        // 🖼️ Senão, mostra a thumbnail com botão play
+        <button
+          type="button"
+          onClick={() => setPlayingVideo(video.id)}
+          className="group w-full h-full relative"
+        >
+          <img
+            src={video.thumbnail}
+            alt={video.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/60 transition">
+            <div className="w-16 h-16 bg-lime-400 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+            <h3 className="text-white font-semibold">{video.title}</h3>
+          </div>
+        </button>
+      )}
+    </div>
   ))}
 </div>
 
